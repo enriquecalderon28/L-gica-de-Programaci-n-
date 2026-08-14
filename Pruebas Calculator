@@ -1,0 +1,27 @@
+const calculator = require("./calculator");
+
+describe("Calculator", () => {
+
+    // Tarea 1 - divide()
+    test("divide 10 entre 2", () => {
+        expect(calculator.divide(10, 2)).toBe(5);
+    });
+
+    test("divide 20 entre 4", () => {
+        expect(calculator.divide(20, 4)).toBe(5);
+    });
+
+    // Tarea 1 - multiply()
+    test("multiplica 5 por 4", () => {
+        expect(calculator.multiply(5, 4)).toBe(20);
+    });
+
+    test("multiplica 3 por 7", () => {
+        expect(calculator.multiply(3, 7)).toBe(21);
+    });
+
+    // Tarea 3 - división entre 0
+    test("divide entre 0 debe generar un error", () => {
+        expect(() => calculator.divide(10, 0)).toThrow("Cannot divide by zero");
+    });
+});

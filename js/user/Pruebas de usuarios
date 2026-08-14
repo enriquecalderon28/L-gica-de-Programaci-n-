@@ -1,0 +1,82 @@
+const User = require("./user");
+const UserController = require("./controller");
+
+describe("UserController", () => {
+
+    let controller;
+    let user1;
+    let user2;
+
+    beforeEach(() => {
+        controller = new UserController();
+
+        user1 = new User(
+            1,
+            "Juan",
+            "juan@gmail.com"
+        );
+
+        user2 = new User(
+            2,
+            "Maria",
+            "maria@gmail.com"
+        );
+
+        controller.add(user1);
+        controller.add(user2);
+    });
+
+    // Tarea 2 - add()
+    test("add agrega un usuario que no está en la lista", () => {
+        const user3 = new User(
+            3,
+            "Carlos",
+            "carlos@gmail.com"
+        );
+
+        controller.add(user3);
+
+        expect(controller.findById(3)).toEqual(user3);
+    });
+
+    // Tarea 2 - remove()
+    test("remove no elimina un usuario que no está en la lista", () => {
+        const user3 = new User(
+            3,
+            "Carlos",
+            "carlos@gmail.com"
+        );
+
+        controller.remove(user3);
+
+        expect(controller.users).toHaveLength(2);
+        expect(controller.findById(1)).toEqual(user1);
+        expect(controller.findById(2)).toEqual(user2);
+    });
+
+    // Tarea 2 - findByEmail()
+    test("findByEmail encuentra un usuario existente", () => {
+        expect(
+            controller.findByEmail("juan@gmail.com")
+        ).toEqual(user1);
+    });
+
+    test("findByEmail devuelve undefined si el email no existe", () => {
+        expect(
+            controller.findByEmail("noexiste@gmail.com")
+        ).toBeUndefined();
+    });
+
+    // Tarea 2 - findById()
+    test("findById encuentra un usuario existente", () => {
+        expect(
+            controller.findById(2)
+        ).toEqual(user2);
+    });
+
+    test("findById devuelve undefined si el id no existe", () => {
+        expect(
+            controller.findById(999)
+        ).toBeUndefined();
+    });
+});
